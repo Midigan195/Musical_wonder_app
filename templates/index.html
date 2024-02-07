@@ -1,0 +1,107 @@
+CTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/tempstyles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-nvzP7rO4Ee67vGhI5SUp84fn4B5bgK15fDyWYIFl6osv3p2Pv9N5uMToJw21aYmd" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>MusicalWonder</title>
+</head>
+<body>
+    <div class="back-image"></div>
+    <header id="top_block">
+        <h1 onclick="reloadPage()" id="logo">MusicalWonder</h1>
+        <div class="search-container">
+            <select id="filterOptions">
+                <option value="none" style="display:none;">Filter</option>
+                <option value="desc">Descending Order</option>
+                <option value="asc">Ascending Order</option>
+                <option value="year">Year</option>
+                <option value="genre">Genre</option>
+            </select>
+            <input type="text" id="searchInput" placeholder="Search">
+            <button type="submit" id="searchButton">Find</button>
+        </div>
+        <div class="social-icons" id="author1-social">
+            <p class="AuthorName">Liam Bowers:</p>
+            <a href="https://www.linkedin.com/in/liam-bowers718" target="_blank">
+                <img src="https://cdn.worldvectorlogo.com/logos/linkedin-icon-2.svg" alt="linkedin">
+            </a>
+            <a href="https://github.com/Midigan195" target="_blank">
+                <img src="https://seeklogo.com/images/G/github-logo-7880D80B8D-seeklogo.com.png" alt="Github">
+            </a>
+        </div>
+        <div class="social-icons" id="author2-social">
+            <p class="AuthorName">Garnet Matola:</p>
+            <a href="https://www.linkedin.com/in/garnetmatola" target="_blank">
+                <img src="https://cdn.worldvectorlogo.com/logos/linkedin-icon-2.svg" alt="linkedin">
+            </a>
+            <a href="https://github.com/CallmeJimmy18" target="_blank">
+                <img src="https://seeklogo.com/images/G/github-logo-7880D80B8D-seeklogo.com.png" alt="Github">
+            </a>
+        </div>
+    </header>
+    <div class="recommendation-block" id="animeContainer">
+        <!--Anime will be dynamically added here-->
+    </div>
+    <p id="site-description">
+        Welcome To Project MusicalWonder! your ultimate library for discovering the tunes of your favorite anime series!
+        Whether you're trying to track down that catchy opening theme from a show you loved or searching for the perfect soundtrack to set the mood,
+        we've got you covered. Dive into our extensive collection of anime music and explore a vast array of melodies and beats. With our easy-to-use search feature, simply input details about the anime you're looking for, and let us do the rest.
+        <br><br>No more racking your brain trying to remember the name—Musical Wonder will help you find the perfect soundtrack to your anime adventures. So,
+        get ready to rediscover the magic of your favorite shows through their unforgettable music. Welcome to Musical Wonder, where the melodies never end and the anime vibes are always strong! 🎵<br>
+    </p>
+    <p id="site-slogan"><b>Welcome to a world where your music matters. Welcome to Musical Wonder.</b></p>
+    <script>
+        $(document).ready(function () {
+            // Fetch anime data from the API
+            function displayAnime(data) {
+                $('#animeContainer').empty();
+                // Iterate through each anime in the data and create the corresponding HTML
+                data.forEach(function (anime) {
+                    var animeContainer = $('<a>').attr('href', 'anime.html?anime_id=' + anime.Anime_id);
+                    var animeDiv = $('<div>').addClass('anime-container');
+                    var nameBlock = $('<div>').addClass('Name-block');
+                    var title = $('<h2>').text(anime.Name);
+                    var image = $('<img>').attr('src', anime.Image).addClass('animecover');
+
+                    // Append elements to the DOM
+                    nameBlock.append(title);
+                    animeDiv.append(nameBlock, image);
+                    animeContainer.append(animeDiv);
+                    $('#animeContainer').append(animeContainer);
+                });
+            }
+            $('#searchButton').click(function () {
+                var searchTerm = $('#searchInput').val();
+
+                // Perform search
+                $.get("https://midigan.pythonanywhere.com/search/" + searchTerm, function (searchResults) {
+                    displayAnime(searchResults);
+                });
+            });
+            $.get("https://midigan.pythonanywhere.com/search/", displayAnime);
+
+            $('#filterOptions').change(function () {
+                var sortOrder = $(this).val();
+                var searchTerm = $('#searchInput').val();
+
+                if (searchTerm === "") {
+                    $.get("https://midigan.pythonanywhere.com/search/filter/" + sortOrder, displayAnime);
+                    /*$('#filterOptions').hide();*/
+                } else {
+                    $.get("https://midigan.pythonanywhere.com/search/" + searchTerm + "/" + sortOrder + "/", function (filterResults) {
+                        displayAnime(filterResults);
+                        /*$('#filterOptions').hide();*/
+                    });
+                }
+            });
+        });
+
+        function reloadPage() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>

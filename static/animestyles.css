@@ -1,0 +1,131 @@
+#main-block {
+    background-image: linear-gradient(80deg, rgba(255, 199, 222, 0.671), rgba(255, 199, 222, 0.925));
+    border-radius: 6px;
+    border: rgb(97, 30, 64) solid;
+    margin: 110px 110px;
+    margin-top: 20px;
+    justify-content: space-evenly;
+    height: 450px;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+a {
+    text-decoration: none;
+}
+
+.anime-title {
+    margin-left: 40px;
+    color: rgb(55, 0, 80);
+}
+
+.anime-about {
+    display: flex;
+    justify-content: space-evenly;
+    overflow: hidden;
+}
+
+p {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+}
+
+@keyframes scrollAnimation {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.recommendations {
+    border-radius: 15px;
+    margin: 10px 110px;
+    /* margin: 110px 110px; */
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;/*Fixed issue with the weird cuuting of the first and last images of reccomendations. used flex strat instead of space between*/
+    height: 370px;
+    overflow-x: auto;
+}
+
+.recommendations::-webkit-scrollbar {
+    width: 15px; /* Width of the scrollbar */
+}
+
+.recommendations:-webkit-scrollbar-thumb {
+    background-color: rgb(97, 30, 64);
+    border-radius: 10px; /* Adjusted to match the radius of the .recommendation-block */
+}
+
+#searchButton {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    filter: brightness(80%);
+    font-size: 16px;
+}
+
+#searchButton:hover {
+    filter: brightness(100%);
+}
+
+
+.recommend-container {
+    position: relative;
+    margin-left: 30px;
+    min-width: 235px;/*Resized the conatiner using min width insteadf of max width*/
+    border-radius: 15px;
+    height: 315px;
+    border: 5px rgb(97, 30, 64) solid;
+    filter: brightness(100%);
+    transition: filter 0.3s;
+    overflow: hidden;
+}
+
+.recommend-container:hover {
+    filter: brightness(170%);
+}
+
+.reccover {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    display: inline;
+    margin-bottom: 15px;
+    filter: brightness(100%);
+    transition: filter 0.3s;
+}
+
+.recommend-cover {
+    max-width: 300px;
+    /*height: auto;*/
+    width: 100%;/*make the image fit into the entire container*/
+    display: inline;
+    margin-bottom: 15px;
+    filter: brightness(100%);
+    transition: filter 0.3s;
+}
+
+#anime-information {
+    flex-grow: 1;
+    padding-left: 50px;
+}
+
+#animeCredits {
+    margin-left: 10px; /*Added spacing for the anime credits*/
+}
+
+#main-block::-webkit-scrollbar {
+    width: 15px; /* Width of the scrollbar */
+}
+
+#main-block::-webkit-scrollbar-thumb {
+    background-color: rgb(97, 30, 64);
+    border-radius: 2px; /* Adjusted to match the radius of the .recommendation-block */
+}

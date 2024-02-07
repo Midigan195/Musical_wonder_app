@@ -1,0 +1,217 @@
+body {
+    margin-right: 0.2px;
+    margin-left: 0.2px;
+    margin-top: 0px;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    background-image: linear-gradient(180deg, rgb(77, 26, 143), rgba(140, 73, 194, 0.719));
+    z-index: 0;
+}
+
+#logo {
+    color: rgb(243, 68, 243);
+    font-family: Impact, sans-serif;/*Updated Logo to be uniquye impace font like used in MVP*/
+    font-size: 30px;
+    margin-left: 17px;
+    margin-top: 0px;
+    font-weight: 100;/*made letters slightly thinner*/
+}
+
+#top_block {
+    background-image: linear-gradient(0deg, rgba(77, 36, 61, 0.685), rgba(77, 36, 61, 0.829));
+    padding-top: 17px;
+    padding-bottom: 50px;
+    padding-left: 9px;
+    padding-right: 10px;
+    width: 99%;
+    margin-left: 0px;
+    margin-bottom: 5px;
+    border-bottom: rgb(65, 1, 38) solid;
+    align-content: center;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    max-width: 750px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.anime-container {
+    position: relative;
+    margin-bottom: 10px; /*This is where the probloem was. Adjusted max-width to width and rearranged margins to accomodate*/
+    margin-top: 20px;
+    width: 240px;
+    border-radius: 15px;
+    height: 315px;
+    border: 5px rgb(97, 30, 64) solid;
+    filter: brightness(100%);
+    transition: filter 0.3s;
+    overflow: hidden;
+}
+
+.Name-block {
+    background-color: rgba(0, 0, 0, 0.8); /* Slightly transparent black background */
+    position: absolute;
+    max-width: 250px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0px 0px; /* Adjusted margin */
+    border-radius: 0px 0px 10px;
+    height: 35%; /* Half the height of anime-container */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease;
+    filter: brightness(80%);
+    z-index: 1; /* Set a higher z-index */
+}
+
+.anime-container:hover .Name-block {
+    opacity: 1; /* Show Name-block on hover */
+}
+
+.anime-container:hover {
+    filter: brightness(120%)
+}
+.Name-block:hover {
+    filter: brightness(200%);
+}
+
+.animecover {
+    width: 100%;
+    height: 100%;/*Adjusted anime cover to fill container*/
+}
+
+h2 {
+    color: rgb(255, 248, 238);
+}
+
+input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    width: 80%;
+    font-size: 16px;
+}
+
+#filterOptions {
+    color: #fdfcfd;
+    position: static;
+    background-color: #8542f7;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+    padding-left: 5px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+option {
+    color: #f181e8;
+}
+
+#filterButton {
+    padding: 10px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fdfaff;
+    color: rgb(68, 1, 95);
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#searchButton {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #8542f7; /*Chnaged serach button colour to be in theme with anime*/
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.recommendation-block {
+    background-image: linear-gradient(80deg, rgba(255, 199, 222, 0.671), rgba(255, 199, 222, 0.925));
+    border-radius: 15px;
+    border: rgb(97, 30, 64) solid;
+    margin: 110px 110px;
+    margin-top: 20px;
+    /*display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;*/
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+    height: 450px;/*Added grid template instead of spacing evenly list items from left to right*/
+    overflow-y: auto;
+    z-index: 1;
+    padding: 0 20px;
+}
+
+
+.recommendation-block::-webkit-scrollbar {
+    width: 15px; /* Width of the scrollbar */
+}
+
+.recommendation-block::-webkit-scrollbar-thumb {
+    background-color: rgb(97, 30, 64);
+    border-radius: 10px; /* Adjusted to match the radius of the .recommendation-block */
+}
+
+.AuthorName {
+    padding-right: 2px;
+    display: flex;
+    font-size: 14px;
+    color: #d842dd;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+
+.social-icons img {
+    width: 30px; /* Adjust the size of the social media icons */
+    height: 30px; /* Adjust the size of the social media icons */
+    margin-left: 10px; /* Add some spacing between icons */
+}
+
+#site-description {
+    margin: 10px 110px;
+    color: #fdfaff;
+    /* margin: 110px 110px; */
+    padding-bottom: 40px;
+    display: flex;
+    font-size: 16px;
+    height: 100px;
+}
+
+#site-slogan {
+    color: #fdfaff;
+    padding-bottom: 40px;
+    text-align: center;
+    font-size: 16px;
+}

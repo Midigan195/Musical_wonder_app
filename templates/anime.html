@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/tempstyles.css">
+    <link rel="stylesheet" href="static/animestyles.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="anime.js"></script>
+    <title>MusicalWonder</title>
+</head>
+<body>
+    <header id="top_block">
+        <a href="http://callmejimmy.pythonanywhere.com/">
+            <h1 id="logo">MusicalWonder</h1>
+        </a>
+        </div>
+    </header>
+    <div id="main-block">
+        <h2 class="anime-title">Hold On a sec...</h2>
+        <section class="anime-about">
+            <div class="recommend-container">
+                <img src="" alt="Image" class="recommend-cover">
+            </div>
+            <div id="anime-information">
+                <div id="anime-description">
+                    <p>Hold On a sec...</p>
+                </div>
+                <div id="audio-container">
+                    <!-- Audio elements will be appended here dynamically -->
+                </div>
+            </div>
+        </section>
+        <div id="animeCredits">
+        </div>
+    </div>
+    <div class="recommendations" id="animeContainer">
+    </div>
+    <script>
+        $(document).ready(function () {
+            // Function to extract query parameters
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // Function to fetch and display detailed anime information
+            function displayAnimeDetails(data) {
+                const animeData = data.anime_data;
+                const musicData = data.music_data;
+
+                $('.anime-title').text(animeData.Name);
+                $('.recommend-cover').attr('src', animeData.Image_URL);
+                $('#anime-description').html('<p>' + animeData.Description + '</p>');
+
+                // Handle audio data
+                musicData.forEach(function (audio) {
+                    const audioElement = $('<audio controls>').attr('src', audio.Link).text('Your browser does not support the audio tag.');
+                    const audioTitle = $('<p>').text(audio.Name + ' by ' + audio.Artist);
+                    $('#audio-container').append(audioTitle, audioElement);
+                });
+                const animeWriter = $('<p>').addClass('writer').text('Written by: ' + animeData.Writer);
+                const animeGenre = $('<p>').addClass(']Genre').text('Genre: ' + animeData.Genre);
+                const animeYear = $('<p>').addClass('Year').text('Aired in: ' + animeData.Year);
+                $('#animeCredits').append(animeWriter, animeGenre, animeYear);
+            }
+
+
+            // Fetch anime details based on anime_id query parameter
+            const animeId = getQueryParam('anime_id');
+            if (animeId) {
+                $.get("https://midigan.pythonanywhere.com/Anime/" + animeId, displayAnimeDetails);
+            }
+        });
+
+        $(document).ready(function () {
+            // Fetch anime data from the API
+            function displayAnime(data) {
+                $('#animeContainer').empty();
+                // Iterate through each anime in the data and create the corresponding HTML
+                data.forEach(function (anime) {
+                    var animeContainer = $('<a>').attr('href', 'anime.html?anime_id=' + anime.Anime_id);
+                    var animeDiv = $('<div>').addClass('anime-container');
+                    var nameBlock = $('<div>').addClass('Name-block');
+                    var title = $('<h2>').text(anime.Name);
+                    var image = $('<img>').attr('src', anime.Image).addClass('reccover');
+
+                    // Append elements to the DOM
+                    nameBlock.append(title);
+                    animeDiv.append(nameBlock, image);
+                    animeContainer.append(animeDiv);
+                    $('#animeContainer').append(animeContainer);
+                });
+            }
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            const animeId = getQueryParam('anime_id');
+            $.get("https://midigan.pythonanywhere.com/recommendations/" + animeId, displayAnime);
+
+            $('#searchButton').click(function () {
+                var searchTerm = $('#searchInput').val();
+
+                window.location.href = 'index.html?search=' + searchTerm;
+                // Perform search
+                $.get("https://midigan.pythonanywhere.com/search/" + searchTerm, function (searchResults) {
+                    displayAnime(searchResults);
+                });
+            });
+
+            $('#filterButton').click(function () {
+                var sortOrder = 'desc';
+                var searchTerm = $('#searchInput').val();
+
+                // Perform filter
+                $.get("https://midigan.pythonanywhere.com/search/" + searchTerm + "/" + sortOrder + "/", function (filterResults) {
+                    displayAnime(filterResults);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
