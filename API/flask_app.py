@@ -1,4 +1,4 @@
-# app.py
+#!/usr/bin/python3
 
 from flask import Flask, jsonify, render_template, g
 from flask_cors import CORS
