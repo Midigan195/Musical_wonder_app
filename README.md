@@ -19,6 +19,7 @@ Step 2: Ensure Python and MySQL are installed
 
 - https://www.python.org/downloads/
 - https://dev.mysql.com/doc/refman/8.0/en/installing.html
+
 Step 3: Install Dependencies
 
 ```bash
