@@ -7,6 +7,9 @@ Welcome to MusicalWonder a web application that allows you to find your favourat
 - Linkedin
     - [Liam Bowers](https://www.linkedin.com/in/liam-bowers718/)
     - [Garnet Matola](https://www.linkedin.com/in/garnetmatola/)
+
+---
+
 ## Installation
 
 Step 1: Clone Repo
@@ -26,6 +29,8 @@ Step 3: Install Dependencies
   pip install Flask mysqlclient pandas scikit-learn
 ```
 
+---
+
 ## Usage
 
 ```bash
@@ -41,12 +46,15 @@ Attempting to run the API will result in an error. This is due to the limitation
 
 [Click here to read more.](https://help.pythonanywhere.com/pages/AccessingMySQLFromOutsidePythonAnywhere/)
 
+---
 
 ## Contributing
 
 Feel free to add contribution to our website, by making a pull request.
 
 Contributions can incude, an additional feature or something you'd like to see on our site.
+
+---
 
 ## Related
 
@@ -58,6 +66,7 @@ For additional information
 
 [Wikipedia license](https://commons.wikimedia.org/wiki/Commons:Licensing)
 
+---
 
 ## License
 
