@@ -1,8 +1,24 @@
+"""
+This module priovides a reccomendation algorithm for the site.
+"""
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 def get_recommendations(query, connection, anime_id, num_items):
+    """
+    This function compiles a list of anime that are most similar
+    to the one provided.
+
+    Args:
+        query (str): String formated SQL query.
+        connection (obj): Establish connnection to database.
+        anime_id (int): Anime to be compared against.
+        num_items (int): maximum number of items to return.
+    
+    Returns:
+        Object with a list of data. 
+    """
 
     music_df = pd.read_sql(query, connection)
 

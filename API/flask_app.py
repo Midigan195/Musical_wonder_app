@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"This module creates a flask web application for an API"
 
 from flask import Flask, jsonify, render_template, g
 from flask_cors import CORS
@@ -22,26 +23,32 @@ app.config['DATABASE'] = dict(
 )
 
 def get_db():
+    """ Function for starting a connection to mysql database. """
     if 'db' not in g:
         g.db = MySQLdb.connect(**app.config['DATABASE'])
     return g.db
 
 @app.before_request
 def before_request():
+    """ Connects to database before each request """
     g.db = get_db()
 
 @app.teardown_request
 def teardown_request(error):
+    """Disconnect from database after eache request"""
     db = g.pop('db', None)
     if db is not None:
         db.close()
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 @app.route('/Anime/<int:anime_id>')
 def get_anime_data(anime_id):
+    """
+    Returns detailed data of particular Anime in database based of Anime_ID
+    into a Json response.
+
+    Returns:
+        dict: dictionary respresentation of json data
+    """
     anime_query = f"SELECT * FROM Anime WHERE Anime_ID = {anime_id};"
     music_query = f"SELECT * FROM Soundtracks WHERE Anime_ID = {anime_id};"
 
@@ -84,6 +91,13 @@ def get_anime_data(anime_id):
 
 @app.route('/recommendations/<int:anime_id>')
 def show_recommendations(anime_id):
+    """
+    Returns a list of the most similar anime to the anime
+    represented by the anime_id
+
+    Returns:
+        dict: dictionary respresentation of json data
+    """
     # Define the default number of items (e.g., 3)
     connection = g.db
     num_items = 8
@@ -108,6 +122,17 @@ def show_recommendations(anime_id):
 @app.route('/search/<anime_name>/<filter>/')
 @app.route('/search/<anime_name>/<filter>/<int:page>')
 def search_anime(anime_name=None, filter=None, page=None):
+    """
+    Returns a list of anime that match a search criteria.
+
+    Args:
+        Anime_name (str): Name of anime partial or fully matched, case-insensitive.
+        filter (str): Order in which to display items.
+        page (int): Split return into pages with each having a limited number of items.
+
+    Returns:
+      dict: dictionary respresentation of json data.
+    """
     limit = 8
 
     query = get_query(anime_name, filter, limit, page)

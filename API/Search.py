@@ -1,4 +1,16 @@
 def get_query(anime_name=None, filter=None, limit=5, page=1):
+    """
+    This function modified an sql query based on the filter selected.
+
+    Args:
+        anime_name (str, default=None): Name of anime.
+        filter (str, default=None): How to order the return result.
+        limit (int, default=5): limit the amount of items returned.
+        page (int, default=1): what page number to scroll to.
+
+    Returns:
+        A string respresntation of an SQL query.
+    """
 
     if not isinstance(limit, int):
         limit = 5
